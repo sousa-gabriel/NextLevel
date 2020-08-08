@@ -1,33 +1,51 @@
 import React from 'react';
+import api from '../../services/api';
 import './styles.css'
 
+//imagens
 import WhatsAppIcon from '../../assets/images/icons/whatsapp.svg';
 
 
-function TeacherItem(){
+export interface Teacher{
+    id: number;
+    avatar: string;
+    bio: string;
+    cost: number;
+    name:string;
+    subject:string;
+    whatsapp: string;
+}
+interface TeacherItemProps{
+    teacher:Teacher;
+}
+
+const TeacherItem: React.FunctionComponent<TeacherItemProps>=({teacher}) => {
+    
+    //criando uma nova conecção 
+    function createNewConnection(){
+        api.post('conections',{
+            user_id: teacher.id,
+        })
+    }
     return(
     <article className="teacher-item">
         <header>
-            <img src="https://avatars0.githubusercontent.com/u/44657244?s=460&u=2b3b45fe62bb34e78b53c0e266905318d6952c46&v=4" alt="Gabriel Rocha"/>
+            <img src={teacher.avatar} alt={teacher.name}/>
             <div>
-                <strong>Gabriel rocha</strong>
-                <span>Programação Web</span>
+                <strong>{teacher.name}</strong>
+                <span>{teacher.subject}</span>
             </div>
         </header>
-        <p>
-            Gabriel Rocha é ele
-            <br/><br/>
-            Em Junho de 2005, Gabriela, com 11 anos, se inscreveu para o Jovens Talentos, no programa de televisão nacional e em Maio de 2007 ganhou o concurso.
-        </p>
+        <p>{teacher.bio}</p>
         <footer>
             <p>
                 Preço/hora
-                <strong>R$20,00</strong>
+                <strong>{teacher.cost}</strong>
             </p>
-            <button>
+            <a href={`https:/wa.me/${teacher.whatsapp}`} onClick={createNewConnection}>
                 <img src={WhatsAppIcon} alt="Icone do Whats"/>
                 Entrar em contato
-            </button>
+            </a>
         </footer>
     </article>
     )

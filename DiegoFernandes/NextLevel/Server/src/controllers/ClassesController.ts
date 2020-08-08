@@ -43,9 +43,6 @@ export default class ClassesController{
 
         return response.json(classes);
     }
-
-
-
     async create(request:Request,response:Response) {
         const {
             name,

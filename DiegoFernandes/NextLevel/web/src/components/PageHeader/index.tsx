@@ -7,7 +7,8 @@ import logoImg from '../../assets/images/logo.svg';
 import backIcon from '../../assets/images/icons/back.svg';
 
 interface PageHeaderProps{
-    title:string; //define como obrigatorio caso não obrigatorio usar (title?:)
+    title:string; 
+    description?:string;//define como não obrigatorio 
 }
 
 const PageHeader: React.FunctionComponent<PageHeaderProps> = (props) => {
@@ -21,6 +22,7 @@ const PageHeader: React.FunctionComponent<PageHeaderProps> = (props) => {
             </div>
             <div className="header-content">
                 <strong>{props.title}</strong>
+                {(props.description ? <p>{props.description}</p>:null)}
                 {props.children}
             </div>
         </header>
